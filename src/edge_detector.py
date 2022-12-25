@@ -7,7 +7,9 @@ def get_pixel_strength(np_img, row_ind, col_ind):
 
     """
         returns None if the coordinate is out of img
+        returns channel-wise pixel values (BGR)
     """
+    out = []
     num_rows, num_cols, num_channels = np.shape(np_img)
 
     if row_ind >= num_rows or row_ind < 0:
@@ -17,12 +19,13 @@ def get_pixel_strength(np_img, row_ind, col_ind):
         return None
 
     channel_ind = 0
-    pixel_strength = 0
     while channel_ind < num_channels:
-        pixel_strength = pixel_strength + np_img[row_ind][col_ind][channel_ind]
+        out.append(
+            np_img[row_ind][col_ind][channel_ind]
+        )
         channel_ind = channel_ind + 1
 
-    return pixel_strength
+    return out
 
 
 def is_pixel_part_of_an_edge(np_img, row_ind, col_ind):
@@ -36,9 +39,9 @@ def is_pixel_part_of_an_edge(np_img, row_ind, col_ind):
             e. if percentage of high strength pixels is between hsp_perc_lower_bound, hsp_perc_upper_bound then, given pixel is part of an edge
     """
 
-    rect_margin = 3
-    std_threshold = 200
-    pixel_strength_list = []
+    rect_margin = 1
+    std_threshold = 32
+    pixel_strength_list_2d = []
     
 
     rect_coordinates = get_rect_coordinates(row_ind, col_ind, rect_margin)
@@ -49,16 +52,19 @@ def is_pixel_part_of_an_edge(np_img, row_ind, col_ind):
         rect_row_ind = coordinate_arr[0]
         rect_col_ind = coordinate_arr[1]
 
-        pixel_strength = get_pixel_strength(np_img, rect_row_ind, rect_col_ind)
-        if pixel_strength != None:
-            pixel_strength_list.append(pixel_strength)
+        pixel_strength_1d = get_pixel_strength(np_img, rect_row_ind, rect_col_ind)
+        if pixel_strength_1d != None:
+            pixel_strength_list_2d.append(pixel_strength_1d)
 
-    if len(pixel_strength_list) == 0:
+    if len(pixel_strength_list_2d) == 0:
         return False
 
-    std_ = np.std(np.array(pixel_strength_list))
+    std_ = np.std(
+        np.array(pixel_strength_list_2d),
+        axis=0
+    )
     
-    if std_ > std_threshold:
+    if sum(std_) > std_threshold:
         return True
 
     return False

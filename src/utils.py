@@ -29,6 +29,22 @@ def change_img_color(np_img):
         ind_row = ind_row + 1
     return np_img
 
+def get_grayscale_img(np_img):
+    np_img_grayscale = np.array(np_img)
+    num_rows, num_cols, num_channels = np.shape(np_img)
+
+    row_ind = 0
+    while row_ind < num_rows:
+        col_ind = 0
+        while col_ind < num_cols:
+            avg_ = sum(np_img[row_ind][col_ind]) / len(np_img[row_ind][col_ind])
+            np_img_grayscale[row_ind][col_ind] = round(avg_)
+
+            col_ind = col_ind + 1
+
+        row_ind = row_ind + 1
+    
+    return np_img_grayscale
 
 def get_rect_coordinates(center_row, center_col, margin):
 
