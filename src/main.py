@@ -10,8 +10,11 @@ IN_DIR = '../in'
 OUT_DIR = '../out'
 
 WHITE_LIST = [
-    '2-dogs-green-bg.jpeg',
+    # 'dog-green-bg.jpeg'
+    # 'black-dot.png'
+    # '2-dogs-green-bg.jpeg',
     # 'girl-with-flower.png'
+    'selfie.jpeg'
 ]
 
 def entry_point():

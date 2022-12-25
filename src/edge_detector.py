@@ -40,7 +40,7 @@ def is_pixel_part_of_an_edge(np_img, row_ind, col_ind):
     """
 
     rect_margin = 1
-    std_threshold = 32
+    std_threshold = 64
     pixel_strength_list_2d = []
     
 

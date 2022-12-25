@@ -7,8 +7,8 @@ def highlight_coordinates(np_img_raw, coordinate_list):
         row_ind = coorinates[0]
         col_ind = coorinates[1]
 
-        np_img_out[row_ind][col_ind][0] = 0
-        np_img_out[row_ind][col_ind][1] = 0
+        np_img_out[row_ind][col_ind][0] = 255
+        np_img_out[row_ind][col_ind][1] = 255
         np_img_out[row_ind][col_ind][2] = 255
 
     return np_img_out
