@@ -9,27 +9,16 @@ from utils import highlight_coordinates, get_grayscale_img
 IN_DIR = '../in'
 OUT_DIR = '../out'
 
-WHITE_LIST = [
-    # 'dog-green-bg.jpeg'
-    # 'black-dot.png'
-    # '2-dogs-green-bg.jpeg',
-    # 'girl-with-flower.png'
-    'selfie.jpeg'
-]
-
 def entry_point():
     print('ii: starting...')
 
     valid_ext_list = [
         'png',
-        'jpeg'
+        'jpeg',
+        'jpg'
     ]
 
     for in_res in os.listdir(IN_DIR):
-
-        if len(WHITE_LIST) != 0:
-            if (in_res in WHITE_LIST) == False:
-                continue
 
         in_res_path = os.path.join(IN_DIR, in_res)
 
